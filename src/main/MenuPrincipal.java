@@ -27,21 +27,40 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        VerGrafos = new javax.swing.JButton();
+        CargarTXT = new javax.swing.JButton();
+        Fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        VerGrafos.setText("Ver Grafos");
+        VerGrafos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerGrafosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(VerGrafos, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 115, 201, 78));
+
+        CargarTXT.setText("Cargar txt");
+        CargarTXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarTXTActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CargarTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 26, 201, 78));
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 285, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void VerGrafosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerGrafosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VerGrafosActionPerformed
+
+    private void CargarTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarTXTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CargarTXTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +98,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CargarTXT;
+    private javax.swing.JLabel Fondo;
+    private javax.swing.JButton VerGrafos;
     // End of variables declaration//GEN-END:variables
 }
