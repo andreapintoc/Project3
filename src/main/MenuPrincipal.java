@@ -5,6 +5,17 @@
  */
 package main;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Asdrubal Rivas
@@ -14,8 +25,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
+    public String contenidoArchivo;
+    public boolean PrimeraVez;
+    private String contenido;
+    private String linea;
+    private boolean archivoCargado = false;
     public MenuPrincipal() {
         initComponents();
+        PrimeraVez = true;
+//        String rutaArchivo = "C:\\Users\\Asdrubal Rivas\\Desktop\\Proyecto1-EDD\\PROYECTO.txt";
+//
+//    // Crea un objeto File para el archivo de texto
+//    File archivo = new File(rutaArchivo);
+//
+//    // Crea un objeto Scanner para leer el archivo
+//    try (Scanner scanner = new Scanner(archivo)) {
+//        // Aquí puedes hacer lo que quieras con el contenido del archivo
+//        while (scanner.hasNextLine()) {
+//            String linea = scanner.nextLine();
+//            //System.out.println(linea);
+//        }
+//    } catch (FileNotFoundException e) {
+//        // Si ocurre un error al cargar el archivo, muestra un mensaje de error
+//        System.err.println("Error al cargar el archivo: " + e.getMessage());
+//    }
+//    }
     }
 
     /**
@@ -28,8 +62,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         VerGrafos = new javax.swing.JButton();
-        CargarTXT = new javax.swing.JButton();
+        AgregarUsuario = new javax.swing.JButton();
         Fondo = new javax.swing.JLabel();
+        EliminarUsuario = new javax.swing.JButton();
+        CargarTXT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -40,7 +76,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 VerGrafosActionPerformed(evt);
             }
         });
-        getContentPane().add(VerGrafos, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 115, 201, 78));
+        getContentPane().add(VerGrafos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 201, 78));
+
+        AgregarUsuario.setText("Agregar Usuario");
+        AgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 201, 78));
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 285, -1, -1));
+
+        EliminarUsuario.setText("Eliminar Usuario");
+        EliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(EliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 201, 78));
 
         CargarTXT.setText("Cargar txt");
         CargarTXT.addActionListener(new java.awt.event.ActionListener() {
@@ -49,18 +102,110 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(CargarTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 26, 201, 78));
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 285, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void VerGrafosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerGrafosActionPerformed
         // TODO add your handling code here:
+        if(PrimeraVez == true){
+        try (Scanner scanner = new Scanner(new File("C:\\Users\\Asdrubal Rivas\\Desktop\\Proyecto1-EDD\\PROYECTO.txt"))) {
+                while (scanner.hasNextLine()) {
+                    String linea = scanner.nextLine();
+                    System.out.println(linea);
+                }
+            } catch (FileNotFoundException ex) {
+                System.err.println("Archivo no encontrado: " + ex.getMessage());
+            }
+        }else if(PrimeraVez == false){
+            if (contenido != null && !contenido.isEmpty()) {
+                System.err.println(contenido);
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "No cargaste ningun txt");
+            
+            }
+}
+       
+        
     }//GEN-LAST:event_VerGrafosActionPerformed
 
     private void CargarTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarTXTActionPerformed
         // TODO add your handling code here:
+        if (archivoCargado || PrimeraVez == true){
+            int existente = JOptionPane.showConfirmDialog(rootPane, "Ya registraste un txt..\nPara registrar otro necesitas guardar este primero\n¿Quieres guardar?");
+            if (existente == JOptionPane.YES_OPTION){
+                archivoCargado = false;
+                
+                File archivo = new File("archivo.txt");
+                // Leer contenido del archivo
+                //OJO Esto es temporal, aqui lo que guarda es el contenido del txt sin editar..
+                //Osea, el txt original.. la idea es guardar el txt con los cambios del usuario
+                //Todavia no se puede hacer eso porque aja... Ni idea de como hacer el grafo jaja
+                String contenido = this.contenido;
+                // Código para leer contenido del archivo y almacenarlo en la variable "contenido"
+
+                // Guardar contenido en un archivo de texto en la computadora
+                try {
+                    FileOutputStream archivoSalida = new FileOutputStream("Archivo Guardado.txt");
+                    PrintWriter escritor = new PrintWriter(archivoSalida);
+                    escritor.print(contenido);
+                    escritor.close();
+                    JOptionPane.showMessageDialog(rootPane, "Archivo guardado exitosamente !!\nYa puedes cargar otro txt");
+                    PrimeraVez = false;
+                } catch (IOException e) {
+                    System.out.println("Error al guardar archivo: " + e.getMessage());
+                }
+            
+            }
+        JFileChooser chooser = new JFileChooser();
+        int resultado = chooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            try {
+                File archivoSeleccionado = chooser.getSelectedFile();
+                BufferedReader lector = new BufferedReader(new FileReader(archivoSeleccionado));
+                String linea;
+                contenido = "";
+                while ((linea = lector.readLine()) != null) {
+                    contenido += linea + "\n";
+                    archivoCargado = true;
+                }
+                lector.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+        }
+        }
+        }
+        
+//        JFileChooser chooser = new JFileChooser();
+//        int resultado = chooser.showOpenDialog(this);
+//        if (resultado == JFileChooser.APPROVE_OPTION) {
+//            try {
+//                File archivoSeleccionado = chooser.getSelectedFile();
+//                BufferedReader lector = new BufferedReader(new FileReader(archivoSeleccionado));
+//                String linea;
+//                contenido = "";
+//                while ((linea = lector.readLine()) != null) {
+//                    contenido += linea + "\n";
+//                    archivoCargado = true;
+//                }
+//                lector.close();
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//
+//    }
+//    }
+                                    
     }//GEN-LAST:event_CargarTXTActionPerformed
+
+    private void EliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarUsuarioActionPerformed
+
+    private void AgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarUsuarioActionPerformed
+        // TODO add your handling code here
+    }//GEN-LAST:event_AgregarUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,7 +243,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CargarTXT;
+    public javax.swing.JButton AgregarUsuario;
+    public javax.swing.JButton CargarTXT;
+    public javax.swing.JButton EliminarUsuario;
     private javax.swing.JLabel Fondo;
     private javax.swing.JButton VerGrafos;
     // End of variables declaration//GEN-END:variables
