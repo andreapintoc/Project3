@@ -33,23 +33,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         PrimeraVez = true;
-//        String rutaArchivo = "C:\\Users\\Asdrubal Rivas\\Desktop\\Proyecto1-EDD\\PROYECTO.txt";
-//
-//    // Crea un objeto File para el archivo de texto
-//    File archivo = new File(rutaArchivo);
-//
-//    // Crea un objeto Scanner para leer el archivo
-//    try (Scanner scanner = new Scanner(archivo)) {
-//        // Aquí puedes hacer lo que quieras con el contenido del archivo
-//        while (scanner.hasNextLine()) {
-//            String linea = scanner.nextLine();
-//            //System.out.println(linea);
-//        }
-//    } catch (FileNotFoundException e) {
-//        // Si ocurre un error al cargar el archivo, muestra un mensaje de error
-//        System.err.println("Error al cargar el archivo: " + e.getMessage());
-//    }
-//    }
     }
 
     /**
@@ -62,9 +45,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         VerGrafos = new javax.swing.JButton();
-        AgregarUsuario = new javax.swing.JButton();
+        ModificarGrafo = new javax.swing.JButton();
         Fondo = new javax.swing.JLabel();
-        EliminarUsuario = new javax.swing.JButton();
         CargarTXT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,24 +58,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 VerGrafosActionPerformed(evt);
             }
         });
-        getContentPane().add(VerGrafos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 201, 78));
+        getContentPane().add(VerGrafos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 201, 78));
 
-        AgregarUsuario.setText("Agregar Usuario");
-        AgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        ModificarGrafo.setText("ModificarGrafo");
+        ModificarGrafo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarUsuarioActionPerformed(evt);
+                ModificarGrafoActionPerformed(evt);
             }
         });
-        getContentPane().add(AgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 201, 78));
+        getContentPane().add(ModificarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 201, 78));
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 285, -1, -1));
-
-        EliminarUsuario.setText("Eliminar Usuario");
-        EliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarUsuarioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(EliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 201, 78));
 
         CargarTXT.setText("Cargar txt");
         CargarTXT.addActionListener(new java.awt.event.ActionListener() {
@@ -108,16 +82,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     private void VerGrafosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerGrafosActionPerformed
         // TODO add your handling code here:
+        InterfazGrafos GRAFOSVENTANA = new InterfazGrafos();
+        GRAFOSVENTANA.setTitle("Grafos");
+        GRAFOSVENTANA.setSize(800,700);
+        GRAFOSVENTANA.setResizable(false);
+        GRAFOSVENTANA.setLocationRelativeTo(null);
+        GRAFOSVENTANA.setVisible(true);
+        dispose();
         if(PrimeraVez == true){
         try (Scanner scanner = new Scanner(new File("C:\\Users\\Asdrubal Rivas\\Desktop\\Proyecto1-EDD\\PROYECTO.txt"))) {
                 while (scanner.hasNextLine()) {
                     String linea = scanner.nextLine();
                     System.out.println(linea);
+                    
                 }
             } catch (FileNotFoundException ex) {
                 System.err.println("Archivo no encontrado: " + ex.getMessage());
             }
         }else if(PrimeraVez == false){
+            
             if (contenido != null && !contenido.isEmpty()) {
                 System.err.println(contenido);
             }else{
@@ -199,13 +182,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                     
     }//GEN-LAST:event_CargarTXTActionPerformed
 
-    private void EliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EliminarUsuarioActionPerformed
-
-    private void AgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarUsuarioActionPerformed
+    private void ModificarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarGrafoActionPerformed
         // TODO add your handling code here
-    }//GEN-LAST:event_AgregarUsuarioActionPerformed
+        ModificarGrafo VENTANAUSUARIO = new ModificarGrafo();
+        VENTANAUSUARIO.setTitle("Modificar Grafo");
+        VENTANAUSUARIO.setSize(800,700);
+        VENTANAUSUARIO.setResizable(false);
+        VENTANAUSUARIO.setLocationRelativeTo(null);
+        VENTANAUSUARIO.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ModificarGrafoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,10 +229,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton AgregarUsuario;
     public javax.swing.JButton CargarTXT;
-    public javax.swing.JButton EliminarUsuario;
     private javax.swing.JLabel Fondo;
+    public javax.swing.JButton ModificarGrafo;
     private javax.swing.JButton VerGrafos;
     // End of variables declaration//GEN-END:variables
 }
